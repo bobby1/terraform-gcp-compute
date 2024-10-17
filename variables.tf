@@ -75,3 +75,16 @@ variable "tags" {
 variable "zone" {
   description = "GCP zone in region for deployment"
 }
+
+variable "ingress_cidr_blocks" {
+  description = "CIDR blocks to allow in the security group"
+  type        = map(list(string))
+  default = {
+    ### IP for individual developer's remote address, 67.174.209.57/32 is an access IP address  ### DEBUG
+    dev = ["98.207.22.120/32", "67.174.209.57/32"]
+    # dev = ["98.207.22.0/24"]
+    ### example IPs for a company's testing evironement  ### DEBUG
+    stg = ["98.207.22.120/32", "67.174.209.57/32"]
+    prd = ["0.0.0.0/0"]
+  }
+}

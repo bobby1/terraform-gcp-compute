@@ -33,12 +33,13 @@ provider "google" {
 }
 
 resource "google_compute_instance" "vm_instance" {
-  name         = "${var.instance_name}-${var.environment}-instance"
+  name         = "${var.instance_name}-${var.environment}"
   machine_type = var.instance_type[var.environment]
   tags         = var.tags
+  # target_size        = "1"
   boot_disk {
     initialize_params {
-      image = "debian-cloud/debian-12"
+      image = "ubuntu-os-cloud/ubuntu-minimal-2204-lts"
     }
   }
   network_interface {
@@ -49,5 +50,18 @@ resource "google_compute_instance" "vm_instance" {
 }
 
 resource "google_compute_network" "vpc_network" {
-    name = "vpc-network"
+  name = "vpc-network"
+}
+
+resource "google_compute_firewall" "rules" {
+  project     = base64decode(var.project)
+  name        = "gcnet-vpc-rules"
+  network     = google_compute_network.vpc_network.name
+  description = "Allow SSH and RDP communication from secure locations."
+  priority    = 1000
+  allow {
+    protocol = "tcp"
+    ports    = ["22", "3389", ]
+  }
+  source_ranges = var.ingress_cidr_blocks[var.environment]
 }
