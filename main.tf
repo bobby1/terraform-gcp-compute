@@ -36,10 +36,9 @@ resource "google_compute_instance" "vm_instance" {
   name         = "${var.instance_name}-${var.environment}"
   machine_type = var.instance_type[var.environment]
   tags         = var.tags
-  # target_size        = "1"
   boot_disk {
     initialize_params {
-      image = "ubuntu-os-cloud/ubuntu-minimal-2204-lts"
+      image = "debian-cloud/debian-12"
     }
   }
   network_interface {
