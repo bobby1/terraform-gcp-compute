@@ -54,7 +54,8 @@ or
 to automatically accept the ssh key
 
 
-If you no longer need the stack, you can clean up the by using $ terraform destroy -auto-approve
+If you no longer need the stack, you can clean up the by using 
+	$ terraform destroy -auto-approve
 
 Roadmap
 Please email me for features and additions you would like to see.
