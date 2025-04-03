@@ -66,10 +66,6 @@ resource "google_compute_network" "vpc_network" {
   name = "vpc-network"
 }
 
-<<<<<<< HEAD
-resource "google_compute_address" "ip_address" {
-  name = "vm-ip-address"
-=======
 resource "google_compute_firewall" "rules" {
   project     = base64decode(var.project)
   name        = "gcnet-vpc-rules"
@@ -81,5 +77,4 @@ resource "google_compute_firewall" "rules" {
     ports    = ["22", "3389", ]
   }
   source_ranges = var.ingress_cidr_blocks[var.environment]
->>>>>>> bb2645f60ecb0085616a908eab9ab17e5da2968c
 }
