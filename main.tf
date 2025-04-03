@@ -33,7 +33,7 @@ provider "google" {
 }
 
 resource "google_compute_instance" "vm_instance" {
-  name         = "${var.instance_name}-${var.environment}-instance"
+  name         = "${var.instance_name}-${var.environment}"
   machine_type = var.instance_type[var.environment]
   tags         = var.tags
   boot_disk {
@@ -66,6 +66,20 @@ resource "google_compute_network" "vpc_network" {
   name = "vpc-network"
 }
 
+<<<<<<< HEAD
 resource "google_compute_address" "ip_address" {
   name = "vm-ip-address"
+=======
+resource "google_compute_firewall" "rules" {
+  project     = base64decode(var.project)
+  name        = "gcnet-vpc-rules"
+  network     = google_compute_network.vpc_network.name
+  description = "Allow SSH and RDP communication from secure locations."
+  priority    = 1000
+  allow {
+    protocol = "tcp"
+    ports    = ["22", "3389", ]
+  }
+  source_ranges = var.ingress_cidr_blocks[var.environment]
+>>>>>>> bb2645f60ecb0085616a908eab9ab17e5da2968c
 }
