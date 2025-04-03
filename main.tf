@@ -38,7 +38,8 @@ resource "google_compute_instance" "vm_instance" {
   tags         = var.tags
   boot_disk {
     initialize_params {
-      image = "debian-cloud/debian-12"
+      # image = "debian-cloud/debian-12"
+      image = "ubuntu-1404-trusty-v20160627"
     }
   }
   network_interface {
@@ -46,8 +47,25 @@ resource "google_compute_instance" "vm_instance" {
     access_config {
     }
   }
+
+  # Note, my keys
+  metadata = {
+    ### Dummy key DEBUG
+    # "ssh-keys" = <<EOF
+    #   ubuntu:ssh-ed25519 AAAAC4NzaC2lZDI2NTE3AAAAIKUQrAkvAPiKWiV7crHgp3czwdBINaXv9illAEspcWva dev 
+    #  EOF
+
+    ### My key DEBUG  
+    "ssh-keys" = <<EOF
+      ubuntu:ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKUQrAkvAPiKWiV8crHgp6czwdBINaXv6illAEspcWva dev 
+     EOF
+  }
 }
 
 resource "google_compute_network" "vpc_network" {
-    name = "vpc-network"
+  name = "vpc-network"
+}
+
+resource "google_compute_address" "ip_address" {
+  name = "vm-ip-address"
 }

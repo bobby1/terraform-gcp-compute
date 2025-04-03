@@ -14,11 +14,6 @@
 * 
 *  Developer:  Bobby Wen, Ym9iYnlAd2VuLm9yZwo= (email is base64 encode to prevent file scraping for email addresses)
 ================================================================================== */
-output "internal_ip" {
-  value = google_compute_instance.vm_instance.network_interface.*.network_ip
-}
-
-output "external_ip" {
-  # value = google_compute_address.ip_address  // for all values
-  value = google_compute_address.ip_address.address
-}
+# credentials_file = "<location of the GCP Credential file encoded using base64 from GCP>"  //base64 encoded JSON file
+# project          = "<your GCP project ID>"  //base64 encoded project name
+# zone             = "<the zones to deploy the nodes based on your region>"
